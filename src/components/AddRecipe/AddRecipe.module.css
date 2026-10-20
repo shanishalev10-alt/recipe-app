@@ -1,0 +1,47 @@
+.outer {
+  margin: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  align-items: center;
+}
+
+.main-content {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+}
+
+.card {
+  width: max-content;
+  margin: auto;
+}
+
+.file-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  max-width: 100%;
+  height: 200px;
+  padding: 1em;
+  border: 1px dotted #767575;
+  border-radius: 4px;
+  color: slategray;
+  cursor: pointer;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview {
+  width: 200px;
+  max-width: 100%;
+  z-index: 2;
+}

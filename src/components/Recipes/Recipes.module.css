@@ -1,0 +1,24 @@
+.title {
+  font-weight: 700;
+  font-size: 2rem;
+  margin: auto;
+  width: max-content;
+}
+
+.main-content {
+  display: flex;
+  gap: 1rem;
+}
+
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.recipes img {
+  width:200px;
+  margin: auto;
+  display: block;
+  border-radius: 5%;
+}
