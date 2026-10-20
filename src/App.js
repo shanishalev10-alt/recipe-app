@@ -29,7 +29,7 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <h1>Start Cooking Your Favorite Food!</h1>
+      <h1 className={styles.header}>Start Cooking Your Favorite Food!</h1>
       <AddRecipe onAddRecipe={addRecipeHandler} />
       <Recipes recipes={recipes} />
     </div>

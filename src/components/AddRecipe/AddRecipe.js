@@ -47,12 +47,12 @@ const AddRecipe = (props) => {
       });
     }
 
-    props.onAddRecipe({title, ingridiants, instructions, src})
-    
-  setTitle("");
-  setInstructions([]);
-  setIngridiants([]);
-  setSrc();
+    props.onAddRecipe({ title, ingridiants, instructions, src });
+
+    setTitle("");
+    setInstructions([]);
+    setIngridiants([]);
+    setSrc();
   };
 
   const closePopupHandler = () => {
@@ -69,8 +69,8 @@ const AddRecipe = (props) => {
         />
       )}
       <Card className={styles.card}>
-        <h2>Add a recipe to your collection:)</h2>
         <form className={styles.form} onSubmit={submitHandler}>
+          <h2>Add a recipe to your collection:)</h2>
           <label className={styles.label}>
             Recipe title
             <input type="text" value={title} onChange={titleChangeHandler} />
@@ -81,16 +81,24 @@ const AddRecipe = (props) => {
               onChange={uploadPictureHandler}
               className={styles["file-input"]}
             />
-            {src && <img src={src} className={styles.preview} />}
           </label>
+          {src && <img src={src} className={styles.preview} />}
           <div className={styles["main-content"]}>
             <label className={styles.label}>
               Recipe ingridiants
-              <DynamicInputs inputValuesArray={ingridiants} setInputValuesArray={setIngridiants} fieldName="ingridiants"/>
+              <DynamicInputs
+                inputValuesArray={ingridiants}
+                setInputValuesArray={setIngridiants}
+                fieldName="ingridiants"
+              />
             </label>
             <label className={styles.label}>
               Recipe instructions
-              <DynamicInputs inputValuesArray={instructions} setInputValuesArray={setInstructions} fieldName="instructions"/>
+              <DynamicInputs
+                inputValuesArray={instructions}
+                setInputValuesArray={setInstructions}
+                fieldName="instructions"
+              />
             </label>
           </div>
           <Button className="add-button" type="submit">
