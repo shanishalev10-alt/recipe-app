@@ -17,8 +17,13 @@
 }
 
 .recipes img {
-  width:200px;
+  width: 200px;
   margin: auto;
   display: block;
   border-radius: 5%;
+}
+
+.recipe p {
+  max-width: 200px;
+  word-wrap: break-word;
 }

@@ -9,17 +9,22 @@ const AddRecipe = (props) => {
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState([]);
   const [ingridiants, setIngridiants] = useState([]);
-  const [src, setSrc] = useState();
+  const [src, setSrc] = useState("");
   const [error, setError] = useState();
 
   const pictureType = /image.*/;
 
   const uploadPictureHandler = (event) => {
     if (event.target.files[0].type.match(pictureType)) {
-      setSrc(URL.createObjectURL(event.target.files[0]));
-      return console.log("Is a pic!");
+      return setSrc(URL.createObjectURL(event.target.files[0]));
     }
-    console.log("It is not a pic!");
+
+    event.target.value = ""
+
+    return setError({
+      title: "Invalid File Type",
+      text: "The input must be an image",
+    });
   };
 
   const titleChangeHandler = (event) => {
@@ -73,11 +78,12 @@ const AddRecipe = (props) => {
           <h2>Add a recipe to your collection:)</h2>
           <label className={styles.label}>
             Recipe title
-            <input type="text" value={title} onChange={titleChangeHandler} />
+            <input type="text" value={title} onChange={titleChangeHandler}/>
           </label>
           <label className={styles["drop-zone"]}>
             <input
               type="file"
+              accept="image/*"
               onChange={uploadPictureHandler}
               className={styles["file-input"]}
             />
