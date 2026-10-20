@@ -35,6 +35,36 @@
   cursor: pointer;
 }
 
+.file-input[type="file"] {
+  margin: auto;
+  padding: 1.5em;
+  border: 2px dashed #bbb;
+  background-color: #00000010;
+  transition: border-color 0.25s ease-in-out;
+  &::file-selector-button {
+    padding: 1em 1.5em;
+    border-width: 0;
+    border-radius: 0.5rem;
+    color: hsl(210 40% 90%);
+    transition: all 0.25s ease-in-out;
+    cursor: pointer;
+    margin-right: 1em;
+    border: 1px solid #4d0e58;
+    color: white;
+    background: #4d0e58;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.479);
+  }
+  &:hover {
+    border-color: #888;
+
+    &::file-selector-button {
+      background: #613069;
+      border-color: #854591;
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.564);
+    }
+  }
+}
+
 .label {
   display: flex;
   flex-direction: column;

@@ -78,7 +78,7 @@ const AddRecipe = (props) => {
           <h2>Add a recipe to your collection:)</h2>
           <label className={styles.label}>
             Recipe title
-            <input type="text" value={title} onChange={titleChangeHandler}/>
+            <input type="text" value={title} onChange={titleChangeHandler} name="title"/>
           </label>
           <label className={styles["drop-zone"]}>
             <input
