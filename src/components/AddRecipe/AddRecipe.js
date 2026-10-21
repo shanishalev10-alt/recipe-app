@@ -5,6 +5,8 @@ import ErrorModul from "../UI/ErrorModul/ErrorModul";
 import DynamicInputs from "../DynamicInputs/DynamicInputs";
 import styles from "./AddRecipe.module.css";
 
+  const PICTURE_TYPE = /image.*/;
+
 const AddRecipe = (props) => {
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState([]);
@@ -12,10 +14,8 @@ const AddRecipe = (props) => {
   const [src, setSrc] = useState("");
   const [error, setError] = useState();
 
-  const pictureType = /image.*/;
-
   const uploadPictureHandler = (event) => {
-    if (event.target.files[0].type.match(pictureType)) {
+    if (event.target.files[0].type.match(PICTURE_TYPE)) {
       return setSrc(URL.createObjectURL(event.target.files[0]));
     }
 

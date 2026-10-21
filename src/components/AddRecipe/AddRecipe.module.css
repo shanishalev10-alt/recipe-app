@@ -19,6 +19,7 @@
 .card {
   width: max-content;
   margin: auto;
+  padding: 1rem;
 }
 
 .file-input {
@@ -72,5 +73,4 @@
 
 .preview {
   width: 40%;
-  max-width: 100%;
 }

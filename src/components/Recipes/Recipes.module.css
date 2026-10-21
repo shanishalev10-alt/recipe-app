@@ -24,6 +24,11 @@
   border-radius: 5%;
 }
 
+.recipe {
+  padding: 1rem;
+  margin: 1rem;
+}
+
 .recipe p {
   max-width: 200px;
   word-wrap: break-word;
