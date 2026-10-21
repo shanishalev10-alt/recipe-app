@@ -5,7 +5,7 @@ import ErrorModul from "../UI/ErrorModul/ErrorModul";
 import DynamicInputs from "../DynamicInputs/DynamicInputs";
 import styles from "./AddRecipe.module.css";
 
-  const PICTURE_TYPE = /image.*/;
+const PICTURE_TYPE = /image.*/;
 
 const AddRecipe = (props) => {
   const [title, setTitle] = useState("");
@@ -16,10 +16,11 @@ const AddRecipe = (props) => {
 
   const uploadPictureHandler = (event) => {
     if (event.target.files[0].type.match(PICTURE_TYPE)) {
-      return setSrc(URL.createObjectURL(event.target.files[0]));
+       return setSrc(URL.createObjectURL(event.target.files[0]));
     }
 
-    event.target.value = ""
+    event.target.value = "";
+    setSrc("");
 
     return setError({
       title: "Invalid File Type",
@@ -57,7 +58,8 @@ const AddRecipe = (props) => {
     setTitle("");
     setInstructions([]);
     setIngridiants([]);
-    setSrc();
+    setSrc("");
+    event.target.reset()
   };
 
   const closePopupHandler = () => {
@@ -78,7 +80,13 @@ const AddRecipe = (props) => {
           <h2>Add a recipe to your collection:)</h2>
           <label className={styles.label}>
             Recipe title
-            <input type="text" value={title} onChange={titleChangeHandler} name="title"/>
+            <input
+              type="text"
+              value={title}
+              onChange={titleChangeHandler}
+              name="title"
+              maxLength="50"
+            />
           </label>
           <label className={styles["drop-zone"]}>
             <input

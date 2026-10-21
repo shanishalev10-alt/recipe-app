@@ -18,6 +18,7 @@ const DynamicInputs = (props) => {
           onChange={(event) => {
             inputChangeHandler(event);
           }}
+          maxLength="100"
           autoFocus
         />
       ))}
@@ -27,6 +28,7 @@ const DynamicInputs = (props) => {
         onChange={(event) => {
           inputChangeHandler(event);
         }}
+        maxLength="100"
       />
     </>
   );
