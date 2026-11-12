@@ -72,5 +72,32 @@
 }
 
 .preview {
-  width: 40%;
+  width: 200px;
+}
+
+.delete-button {
+  margin: 0;
+  color: red;
+  background-color: white;
+  border: 2px solid rgb(255, 91, 91);
+  font: inherit;
+  padding: 0.3rem 1rem;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.479);
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.delete-button:focus {
+  outline: none;
+}
+
+.delete-button:hover{
+  background: rgb(255, 91, 91);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.564);
+  color: white;
+}
+
+.delete-button:active {
+  background: #431b49;
+  border-color: #301035;
 }

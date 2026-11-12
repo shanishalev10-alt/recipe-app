@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import ErrorModul from "../UI/ErrorModul/ErrorModul";
@@ -7,25 +7,31 @@ import styles from "./AddRecipe.module.css";
 
 const PICTURE_TYPE = /image.*/;
 
-const AddRecipe = (props) => {
+const AddRecipe = ({ onAddRecipe }) => {
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState([]);
   const [ingridiants, setIngridiants] = useState([]);
   const [src, setSrc] = useState("");
   const [error, setError] = useState();
 
+  const pictureInputRef = useRef(null)
+
   const uploadPictureHandler = (event) => {
     if (event.target.files[0].type.match(PICTURE_TYPE)) {
-       return setSrc(URL.createObjectURL(event.target.files[0]));
+      return setSrc(URL.createObjectURL(event.target.files[0]));
     }
 
-    event.target.value = "";
-    setSrc("");
+    deletePicture();
 
     return setError({
       title: "Invalid File Type",
       text: "The input must be an image",
     });
+  };
+
+  const deletePicture = () => {
+    setSrc("");
+    pictureInputRef.current.value = null
   };
 
   const titleChangeHandler = (event) => {
@@ -53,13 +59,13 @@ const AddRecipe = (props) => {
       });
     }
 
-    props.onAddRecipe({ title, ingridiants, instructions, src });
+    onAddRecipe({ title, ingridiants, instructions, src });
 
     setTitle("");
     setInstructions([]);
     setIngridiants([]);
     setSrc("");
-    event.target.reset()
+    event.target.reset();
   };
 
   const closePopupHandler = () => {
@@ -94,9 +100,17 @@ const AddRecipe = (props) => {
               accept="image/*"
               onChange={uploadPictureHandler}
               className={styles["file-input"]}
+              ref={pictureInputRef}
             />
           </label>
-          {src && <img src={src} className={styles.preview} />}
+          {src && (
+            <>
+              <img src={src} className={styles.preview} alt="preview" />
+              <button className={styles["delete-button"]} onClick={deletePicture}>
+                - Remove image
+              </button>
+            </>
+          )}
           <div className={styles["main-content"]}>
             <label className={styles.label}>
               Recipe ingridiants
