@@ -131,8 +131,8 @@ const AddRecipe = () => {
               />
             </label>
           </div>
-          <Button className="add-button" type="submit">
-            Add Recipe
+          <Button type="submit">
+            + Add Recipe
           </Button>
         </form>
       </Card>
