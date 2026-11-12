@@ -1,8 +1,12 @@
+import { useContext } from "react";
+import RecipesContext from "../../store/recipes-context";
 import Recipe from "../Recipe/Recipe";
 import styles from "./Recipes.module.css";
 
-const Recipes = ({ recipes }) => {
-  const recipesElements = recipes.map((recipe, index) => {
+const Recipes = () => {
+  const recipeCtx = useContext(RecipesContext)
+
+  const recipesElements = recipeCtx.recipes.map((recipe, index) => {
     return (
       <Recipe
         src={recipe.src}

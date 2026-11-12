@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import RecipesContext from "../../store/recipes-context";
 import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import ErrorModul from "../UI/ErrorModul/ErrorModul";
@@ -7,7 +8,8 @@ import styles from "./AddRecipe.module.css";
 
 const PICTURE_TYPE = /image.*/;
 
-const AddRecipe = ({ onAddRecipe }) => {
+const AddRecipe = () => {
+  const recipeCtx = useContext(RecipesContext)
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState([]);
   const [ingridiants, setIngridiants] = useState([]);
@@ -59,7 +61,7 @@ const AddRecipe = ({ onAddRecipe }) => {
       });
     }
 
-    onAddRecipe({ title, ingridiants, instructions, src });
+    recipeCtx.addRecipe({ title, ingridiants, instructions, src });
 
     setTitle("");
     setInstructions([]);
