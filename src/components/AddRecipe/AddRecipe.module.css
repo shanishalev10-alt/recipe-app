@@ -101,3 +101,12 @@
   background: #431b49;
   border-color: #301035;
 }
+
+.actions {
+  display: flex;
+}
+
+.cancel {
+  background-color: white;
+  color: #4D0E58;
+}

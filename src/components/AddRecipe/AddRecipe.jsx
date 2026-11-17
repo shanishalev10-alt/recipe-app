@@ -8,15 +8,15 @@ import styles from "./AddRecipe.module.css";
 
 const PICTURE_TYPE = /image.*/;
 
-const AddRecipe = () => {
-  const recipeCtx = useContext(RecipesContext)
-  const [title, setTitle] = useState("");
-  const [instructions, setInstructions] = useState([]);
-  const [ingridiants, setIngridiants] = useState([]);
-  const [src, setSrc] = useState("");
+const AddRecipe = (props) => {
+  const recipeCtx = useContext(RecipesContext);
+  const [title, setTitle] = useState(props.title || "");
+  const [instructions, setInstructions] = useState(props.instructions || []);
+  const [ingridiants, setIngridiants] = useState(props.ingridiants || []);
+  const [src, setSrc] = useState(props.src || "");
   const [error, setError] = useState();
 
-  const pictureInputRef = useRef(null)
+  const pictureInputRef = useRef(null);
 
   const uploadPictureHandler = (event) => {
     if (event.target.files[0].type.match(PICTURE_TYPE)) {
@@ -33,7 +33,7 @@ const AddRecipe = () => {
 
   const deletePicture = () => {
     setSrc("");
-    pictureInputRef.current.value = null
+    pictureInputRef.current.value = null;
   };
 
   const titleChangeHandler = (event) => {
@@ -74,6 +74,17 @@ const AddRecipe = () => {
     setError(null);
   };
 
+  const saveChanges = () => {
+    recipeCtx.editRecipe({
+      id: props.id,
+      title,
+      ingridiants,
+      instructions,
+      src,
+    });
+    props.onSwitchEditing();
+  };
+
   return (
     <div className={styles.outer}>
       {error && (
@@ -85,7 +96,7 @@ const AddRecipe = () => {
       )}
       <Card className={styles.card}>
         <form className={styles.form} onSubmit={submitHandler}>
-          <h2>Add a recipe to your collection:)</h2>
+          {!props.title && <h2>'Add a recipe to your collection:)'</h2>}
           <label className={styles.label}>
             Recipe title
             <input
@@ -108,7 +119,10 @@ const AddRecipe = () => {
           {src && (
             <>
               <img src={src} className={styles.preview} alt="preview" />
-              <button className={styles["delete-button"]} onClick={deletePicture}>
+              <button
+                className={styles["delete-button"]}
+                onClick={deletePicture}
+              >
                 - Remove image
               </button>
             </>
@@ -131,9 +145,15 @@ const AddRecipe = () => {
               />
             </label>
           </div>
-          <Button type="submit">
-            + Add Recipe
-          </Button>
+          {!props.title && <Button type="submit">+ Add Recipe</Button>}
+          {props.title && (
+            <div className={styles.actions}>
+              <Button className={styles.cancel} onClick={props.onSwitchEditing}>
+                Cancel
+              </Button>
+              <Button onClick={saveChanges}>Save Changes</Button>
+            </div>
+          )}
         </form>
       </Card>
     </div>
