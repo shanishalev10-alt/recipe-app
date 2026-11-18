@@ -3,9 +3,11 @@ import List from "../List/List";
 import Card from "../UI/Card/Card";
 import styles from "./Recipe.module.css";
 import AddRecipe from "../AddRecipe/AddRecipe";
+import ConfirmModul from "../UI/ConfirmModul/ConfirmModul";
 
 const Recipe = (props) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
 
   const switchEditingHandler = () => {
     setIsEditing((prev) => !prev);
@@ -13,8 +15,18 @@ const Recipe = (props) => {
 
   return (
     <>
+      {isConfirming && (
+        <ConfirmModul
+          onConfirm={props.onDelete}
+          onCancel={() => {
+            setIsConfirming(false);
+          }}
+          title="Delete recipe?"
+          text="The Recipe wil be permanently deleted"
+        />
+      )}
       {!isEditing && (
-        <li >
+        <li>
           <Card className={styles.recipe}>
             <div className={`${styles.actions}`}>
               <button
@@ -23,7 +35,9 @@ const Recipe = (props) => {
               ></button>
               <button
                 className={`${styles.action} ${styles.trash}`}
-                onClick={props.onDelete}
+                onClick={() => {
+                  setIsConfirming(true);
+                }}
               ></button>
             </div>
             <p className={styles.title}>{props.title}</p>

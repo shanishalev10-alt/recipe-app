@@ -58,8 +58,6 @@ const recipesReducer = (state, action) => {
 
     return { recipes: updatedRecipes };
   } else if (action.type === "FETCH") {
-    console.log("in fetch");
-    console.log(action.recipes);
     return { recipes: action.recipes };
   }
 
@@ -78,7 +76,7 @@ const useRecipes = () => {
     if (storedRecipes) {
       dispatchRecipesAction({ type: "FETCH", recipes: storedRecipes });
     }
-  }, []);
+  }, [dispatchRecipesAction]);
 
   const addRecipe = (recipe) => {
     dispatchRecipesAction({ type: "ADD", recipe });

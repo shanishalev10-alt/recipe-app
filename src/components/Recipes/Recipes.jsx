@@ -15,7 +15,6 @@ const Recipes = () => {
         instructions={recipe.instructions}
         id={recipe.id}
         onDelete={() => {
-          console.log(recipe.id)
           recipeCtx.removeRecipe(recipe.id);
         }}
         key={recipe.id}

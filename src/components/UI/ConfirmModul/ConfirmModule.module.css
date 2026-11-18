@@ -1,0 +1,52 @@
+.popup {
+  padding: 0;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 600px;
+  margin: auto;
+}
+
+.popup h1 {
+  color: #fff;
+  background-color: #cf7538;
+  padding: 1rem;
+  border-radius: 12px 12px 0px 0px;
+}
+
+.popup p,
+button {
+  margin: 2rem;
+}
+
+.dark-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.736);
+}
+
+.confirmation-btn {
+    background-color: #cf7538;
+    border: #cf7538;
+    width: 110px;
+}
+
+.confirmation-btn:hover {
+    background-color: #865737;
+    border:0;
+}
+
+.cancel {
+background-color: #fff;
+border: #865737;
+color:#cf7538;
+}
+
+.cancel:hover {
+    color: #fff;
+    background-color: #cf7538;
+}
+

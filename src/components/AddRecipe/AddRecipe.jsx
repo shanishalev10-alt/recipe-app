@@ -5,6 +5,7 @@ import Card from "../UI/Card/Card";
 import ErrorModul from "../UI/ErrorModul/ErrorModul";
 import DynamicInputs from "../DynamicInputs/DynamicInputs";
 import styles from "./AddRecipe.module.css";
+import ConfirmModul from "../UI/ConfirmModul/ConfirmModul";
 
 const PICTURE_TYPE = /image.*/;
 
@@ -15,8 +16,37 @@ const AddRecipe = (props) => {
   const [ingridiants, setIngridiants] = useState(props.ingridiants || []);
   const [src, setSrc] = useState(props.src || "");
   const [error, setError] = useState();
+  const [isConfirming, setIsConfirming] = useState(false);
 
   const pictureInputRef = useRef(null);
+
+  const validationTest = () => {
+    //if any fields are empty
+    if (title === "") {
+      setError({
+        title: "Missing Input",
+        text: "Recipes should have a title",
+      });
+
+      return false;
+    } else if (ingridiants.length === 0) {
+      setError({
+        title: "Missing Input",
+        text: "At least one ingridiants is required",
+      });
+
+      return false;
+    } else if (instructions.length === 0) {
+      setError({
+        title: "Missing Input",
+        text: "At least one instruction is required",
+      });
+
+      return false;
+    }
+
+    return true;
+  };
 
   const uploadPictureHandler = (event) => {
     if (event.target.files[0].type.match(PICTURE_TYPE)) {
@@ -43,22 +73,8 @@ const AddRecipe = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    //if any fields are empty
-    if (!title) {
-      return setError({
-        title: "Missing Input",
-        text: "Recipes should have a title",
-      });
-    } else if (ingridiants.length === 0) {
-      return setError({
-        title: "Missing Input",
-        text: "At least one ingridiants is required",
-      });
-    } else if (instructions.length === 0) {
-      return setError({
-        title: "Missing Input",
-        text: "At least one instruction is required",
-      });
+    if (!validationTest()) {
+      return;
     }
 
     recipeCtx.addRecipe({ title, ingridiants, instructions, src });
@@ -75,6 +91,11 @@ const AddRecipe = (props) => {
   };
 
   const saveChanges = () => {
+    setIsConfirming(false)
+    if (!validationTest()) {
+      return;
+    }
+
     recipeCtx.editRecipe({
       id: props.id,
       title,
@@ -87,6 +108,14 @@ const AddRecipe = (props) => {
 
   return (
     <div className={styles.outer}>
+      {isConfirming && (
+        <ConfirmModul
+          onConfirm={saveChanges}
+          onCancel={()=>{setIsConfirming(false)}}
+          text={"Are you sure? The changes will be permanent"}
+          title={"Save changes?"}
+        />
+      )}
       {error && (
         <ErrorModul
           onClosePopup={closePopupHandler}
@@ -151,7 +180,7 @@ const AddRecipe = (props) => {
               <Button className={styles.cancel} onClick={props.onSwitchEditing}>
                 Cancel
               </Button>
-              <Button onClick={saveChanges}>Save Changes</Button>
+              <Button onClick={()=>{setIsConfirming(true)}}>Save Changes</Button>
             </div>
           )}
         </form>
