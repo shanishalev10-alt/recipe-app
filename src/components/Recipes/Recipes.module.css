@@ -1,0 +1,12 @@
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.recipes img {
+  width: 200px;
+  margin: auto;
+  display: block;
+  border-radius: 5%;
+}
