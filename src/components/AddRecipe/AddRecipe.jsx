@@ -90,11 +90,17 @@ const AddRecipe = (props) => {
     setError(null);
   };
 
-  const saveChanges = () => {
-    setIsConfirming(false)
+  const getUserConfirmation = () => {
+
     if (!validationTest()) {
       return;
     }
+
+    setIsConfirming(true)
+  }
+  
+  const saveChanges = () => {
+    setIsConfirming(false)
 
     recipeCtx.editRecipe({
       id: props.id,
@@ -180,7 +186,7 @@ const AddRecipe = (props) => {
               <Button className={styles.cancel} onClick={props.onSwitchEditing}>
                 Cancel
               </Button>
-              <Button onClick={()=>{setIsConfirming(true)}}>Save Changes</Button>
+              <Button onClick={getUserConfirmation}>Save Changes</Button>
             </div>
           )}
         </form>
