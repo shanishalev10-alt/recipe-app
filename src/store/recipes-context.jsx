@@ -27,7 +27,7 @@ const RecipesContext = React.createContext({
 const recipesReducer = (state, action) => {
   switch (action.type) {
     case "ADD":
-      let updatedRecipes = [...state, action.recipe];
+      let updatedRecipes = [...state, action.payload];
       return updatedRecipes;
     case "REMOVE":
     //remove functionality
@@ -43,11 +43,11 @@ export const RecipesContextProvider = (props) => {
   );
 
   const addRecipe = (recipe) => {
-    dispatchRecipesAction({ type: "ADD", recipe });
+    dispatchRecipesAction({ type: "ADD", payload: recipe });
   };
 
   const removeRecipe = (identifier) => {
-    dispatchRecipesAction({ type: "REMOVE", identifier });
+    dispatchRecipesAction({ type: "REMOVE", payload: identifier });
   };
 
   return (
