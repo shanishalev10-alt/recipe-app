@@ -1,67 +1,65 @@
 import { useReducer, useEffect } from "react";
 
-const defaultRecipesState = {
-  recipes: [
-    {
-      id: "r1",
-      title: "cake",
-      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
-      instructions: ["Mix in a bowl.", " 30 min in oven."],
-    },
-    {
-      id: "r2",
-      title: "cookies",
-      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
-      instructions: ["Mix in a bowl.", " 30 min in oven."],
-    },
-    {
-      id: "r3",
-      title: "brownies",
-      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate", "butter"],
-      instructions: ["Mix in a bowl.", " 30 min in oven."],
-    },
-  ],
-};
+const defaultRecipesState = [
+  {
+    id: "r1",
+    title: "cake",
+    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
+    instructions: ["Mix in a bowl.", " 30 min in oven."],
+  },
+  {
+    id: "r2",
+    title: "cookies",
+    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
+    instructions: ["Mix in a bowl.", " 30 min in oven."],
+  },
+  {
+    id: "r3",
+    title: "brownies",
+    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate", "butter"],
+    instructions: ["Mix in a bowl.", " 30 min in oven."],
+  },
+];
 
 const recipesReducer = (state, action) => {
-  if (action.type === "ADD") {
-    //add functionality
-    let updatedRecipes = [
-      ...state.recipes,
-      { id: `r${state.recipes.length + 1}`, ...action.recipe },
-    ];
+  let recipes;
+  switch (action.type) {
+    case "ADD": //add functionality
+      recipes = [
+        ...state,
+        { id: `r${+state[state.length - 1].id[1] + 1}`, ...action.payload },
+      ];
 
-    localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
+      localStorage.setItem("recipes", JSON.stringify(recipes));
+      break;
+    case "REMOVE":
+      //remove functionality
+      recipes = state.filter((recipe) => recipe.id !== action.payload);
 
-    return {
-      recipes: updatedRecipes,
-    };
-  } else if (action.type === "REMOVE") {
-    //remove functionality
-    let updatedRecipes = state.recipes.filter(
-      (recipe) => recipe.id !== action.identifier,
-    );
+      localStorage.setItem("recipes", JSON.stringify(recipes));
+      break;
 
-    localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
+    case "EDIT":
+      //edit functionality
+      recipes = state;
+      let newRecipeIndex = state.findIndex(
+        (recipe) => recipe.id === action.payload.id,
+      );
+      console.log(newRecipeIndex);
+      recipes.splice(newRecipeIndex, 1, action.payload);
 
-    return { recipes: updatedRecipes };
-  } else if (action.type === "EDIT") {
-    //edit functionality
-    let updatedRecipes = state.recipes;
-    let newRecipeIndex = state.recipes.findIndex(
-      (recipe) => recipe.id === action.newRecipe.id,
-    );
+      localStorage.setItem("recipes", JSON.stringify(recipes));
+      break;
 
-    updatedRecipes.splice(newRecipeIndex, 1, action.newRecipe);
+    case "FETCH":
+      recipes = action.payload;
+      break;
 
-    localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
-
-    return { recipes: updatedRecipes };
-  } else if (action.type === "FETCH") {
-    return { recipes: action.recipes };
+    default:
+      recipes = defaultRecipesState;
   }
-
-  return defaultRecipesState;
+  console.log(recipes);
+  return recipes;
 };
 
 const useRecipes = () => {
@@ -74,24 +72,24 @@ const useRecipes = () => {
     const storedRecipes = JSON.parse(localStorage.getItem("recipes"));
 
     if (storedRecipes) {
-      dispatchRecipesAction({ type: "FETCH", recipes: storedRecipes });
+      dispatchRecipesAction({ type: "FETCH", payload: storedRecipes });
     }
   }, [dispatchRecipesAction]);
 
   const addRecipe = (recipe) => {
-    dispatchRecipesAction({ type: "ADD", recipe });
+    dispatchRecipesAction({ type: "ADD", payload: recipe });
   };
 
   const removeRecipe = (identifier) => {
-    dispatchRecipesAction({ type: "REMOVE", identifier });
+    dispatchRecipesAction({ type: "REMOVE", payload: identifier });
   };
 
   const editRecipe = (newRecipe) => {
-    dispatchRecipesAction({ type: "EDIT", newRecipe });
+    dispatchRecipesAction({ type: "EDIT", payload: newRecipe });
   };
 
   return {
-    recipes: recipeState.recipes,
+    recipes: recipeState,
     addRecipe: addRecipe,
     editRecipe: editRecipe,
     removeRecipe: removeRecipe,

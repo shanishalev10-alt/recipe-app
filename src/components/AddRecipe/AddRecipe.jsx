@@ -10,7 +10,7 @@ import ConfirmModul from "../UI/ConfirmModul/ConfirmModul";
 const PICTURE_TYPE = /image.*/;
 
 const AddRecipe = (props) => {
-  const recipeCtx = useContext(RecipesContext);
+  const {addRecipe, editRecipe} = useContext(RecipesContext);
   const [title, setTitle] = useState(props.title || "");
   const [instructions, setInstructions] = useState(props.instructions || []);
   const [ingridiants, setIngridiants] = useState(props.ingridiants || []);
@@ -77,7 +77,7 @@ const AddRecipe = (props) => {
       return;
     }
 
-    recipeCtx.addRecipe({ title, ingridiants, instructions, src });
+    addRecipe({ title, ingridiants, instructions, src });
 
     setTitle("");
     setInstructions([]);
@@ -102,7 +102,7 @@ const AddRecipe = (props) => {
   const saveChanges = () => {
     setIsConfirming(false)
 
-    recipeCtx.editRecipe({
+    editRecipe({
       id: props.id,
       title,
       ingridiants,

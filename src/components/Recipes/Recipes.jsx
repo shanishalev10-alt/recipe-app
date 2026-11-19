@@ -4,9 +4,9 @@ import Recipe from "../Recipe/Recipe";
 import styles from "./Recipes.module.css";
 
 const Recipes = () => {
-  const recipeCtx = useContext(RecipesContext);
+  const { recipes, removeRecipe } = useContext(RecipesContext);
 
-  const recipesElements = recipeCtx.recipes.map((recipe) => {
+  const recipesElements = recipes.map((recipe) => {
     return (
       <Recipe
         src={recipe.src}
@@ -15,7 +15,7 @@ const Recipes = () => {
         instructions={recipe.instructions}
         id={recipe.id}
         onDelete={() => {
-          recipeCtx.removeRecipe(recipe.id);
+          removeRecipe(recipe.id);
         }}
         key={recipe.id}
       />
