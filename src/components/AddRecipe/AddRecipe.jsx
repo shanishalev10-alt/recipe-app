@@ -9,14 +9,14 @@ import styles from "./AddRecipe.module.css";
 const PICTURE_TYPE = /image.*/;
 
 const AddRecipe = () => {
-  const recipeCtx = useContext(RecipesContext)
+  const { addRecipe } = useContext(RecipesContext);
   const [title, setTitle] = useState("");
   const [instructions, setInstructions] = useState([]);
   const [ingridiants, setIngridiants] = useState([]);
   const [src, setSrc] = useState("");
   const [error, setError] = useState();
 
-  const pictureInputRef = useRef(null)
+  const pictureInputRef = useRef(null);
 
   const uploadPictureHandler = (event) => {
     if (event.target.files[0].type.match(PICTURE_TYPE)) {
@@ -33,7 +33,7 @@ const AddRecipe = () => {
 
   const deletePicture = () => {
     setSrc("");
-    pictureInputRef.current.value = null
+    pictureInputRef.current.value = null;
   };
 
   const titleChangeHandler = (event) => {
@@ -61,7 +61,7 @@ const AddRecipe = () => {
       });
     }
 
-    recipeCtx.addRecipe({ title, ingridiants, instructions, src });
+    addRecipe({ title, ingridiants, instructions, src });
 
     setTitle("");
     setInstructions([]);
@@ -108,7 +108,10 @@ const AddRecipe = () => {
           {src && (
             <>
               <img src={src} className={styles.preview} alt="preview" />
-              <button className={styles["delete-button"]} onClick={deletePicture}>
+              <button
+                className={styles["delete-button"]}
+                onClick={deletePicture}
+              >
                 - Remove image
               </button>
             </>
@@ -131,9 +134,7 @@ const AddRecipe = () => {
               />
             </label>
           </div>
-          <Button type="submit">
-            + Add Recipe
-          </Button>
+          <Button type="submit">+ Add Recipe</Button>
         </form>
       </Card>
     </div>

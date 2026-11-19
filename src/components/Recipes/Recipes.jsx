@@ -4,9 +4,9 @@ import Recipe from "../Recipe/Recipe";
 import styles from "./Recipes.module.css";
 
 const Recipes = () => {
-  const recipeCtx = useContext(RecipesContext)
+  const { recipes } = useContext(RecipesContext);
 
-  const recipesElements = recipeCtx.recipes.map((recipe, index) => {
+  const recipesElements = recipes.map((recipe, index) => {
     return (
       <Recipe
         src={recipe.src}
