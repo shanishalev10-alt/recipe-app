@@ -1,25 +1,25 @@
 import { useReducer, useEffect } from "react";
 
 const defaultRecipesState = [
-  {
-    id: "r1",
-    title: "cake",
-    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
-    instructions: ["Mix in a bowl.", " 30 min in oven."],
-  },
-  {
-    id: "r2",
-    title: "cookies",
-    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
-    instructions: ["Mix in a bowl.", " 30 min in oven."],
-  },
-  {
-    id: "r3",
-    title: "brownies",
-    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate", "butter"],
-    instructions: ["Mix in a bowl.", " 30 min in oven."],
-  },
-];
+    {
+      id: "r1",
+      title: "cake",
+      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
+      instructions: ["Mix in a bowl.", " 30 min in oven."],
+    },
+    {
+      id: "r2",
+      title: "cookies",
+      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
+      instructions: ["Mix in a bowl.", " 30 min in oven."],
+    },
+    {
+      id: "r3",
+      title: "brownies",
+      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate", "butter"],
+      instructions: ["Mix in a bowl.", " 30 min in oven."],
+    },
+  ]
 
 const recipesReducer = (state, action) => {
   let recipes;
@@ -41,11 +41,11 @@ const recipesReducer = (state, action) => {
 
     case "EDIT":
       //edit functionality
-      recipes = state;
+      recipes = [...state];
       let newRecipeIndex = state.findIndex(
         (recipe) => recipe.id === action.payload.id,
       );
-      console.log(newRecipeIndex);
+
       recipes.splice(newRecipeIndex, 1, action.payload);
 
       localStorage.setItem("recipes", JSON.stringify(recipes));
@@ -58,7 +58,7 @@ const recipesReducer = (state, action) => {
     default:
       recipes = defaultRecipesState;
   }
-  console.log(recipes);
+
   return recipes;
 };
 

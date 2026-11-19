@@ -109,7 +109,7 @@ const AddRecipe = (props) => {
       instructions,
       src,
     });
-    props.onSwitchEditing();
+    props.onSwitchEditing();     
   };
 
   return (
