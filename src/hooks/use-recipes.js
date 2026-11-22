@@ -21,6 +21,10 @@ const defaultRecipesState = [
   },
 ];
 
+const initializeReducer = () => {
+  return JSON.parse(localStorage.getItem("recipes"));
+};
+
 const recipesReducer = (state, action) => {
   let recipes;
   switch (action.type) {
@@ -28,7 +32,10 @@ const recipesReducer = (state, action) => {
       //add functionality
       recipes = [
         ...state,
-        { id: `r${+state[state.length - 1].id[1] + 1}`, ...action.payload },
+        {
+          id: `r${+state[state.length - 1].id.replace("r", "") + 1}`,
+          ...action.payload,
+        },
       ];
 
       localStorage.setItem("recipes", JSON.stringify(recipes));
@@ -51,11 +58,6 @@ const recipesReducer = (state, action) => {
 
       localStorage.setItem("recipes", JSON.stringify(recipes));
       break;
-
-    case "FETCH":
-      recipes = action.payload;
-      break;
-
     default:
       recipes = defaultRecipesState;
   }
@@ -67,15 +69,8 @@ const useRecipes = () => {
   const [recipeState, dispatchRecipesAction] = useReducer(
     recipesReducer,
     defaultRecipesState,
+    initializeReducer,
   );
-
-  useEffect(() => {
-    const storedRecipes = JSON.parse(localStorage.getItem("recipes"));
-
-    if (storedRecipes) {
-      dispatchRecipesAction({ type: "FETCH", payload: storedRecipes });
-    }
-  }, [dispatchRecipesAction]);
 
   const addRecipe = (recipe) => {
     dispatchRecipesAction({ type: "ADD", payload: recipe });
@@ -91,9 +86,9 @@ const useRecipes = () => {
 
   return {
     recipes: recipeState,
-    addRecipe: addRecipe,
-    editRecipe: editRecipe,
-    removeRecipe: removeRecipe,
+    addRecipe,
+    editRecipe,
+    removeRecipe,
   };
 };
 

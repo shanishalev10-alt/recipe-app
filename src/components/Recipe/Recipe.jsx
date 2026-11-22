@@ -25,37 +25,7 @@ const Recipe = (props) => {
           text="The Recipe wil be permanently deleted"
         />
       )}
-      {!isEditing && (
-        <li>
-          <Card className={styles.recipe}>
-            <div className={`${styles.actions}`}>
-              <button
-                className={`${styles.action} ${styles.edit}`}
-                onClick={switchEditingHandler}
-              ></button>
-              <button
-                className={`${styles.action} ${styles.trash}`}
-                onClick={() => {
-                  setIsConfirming(true);
-                }}
-              ></button>
-            </div>
-            <p className={styles.title}>{props.title}</p>
-            {props.src && (
-              <img src={props.src} className={styles.img} alt="dish" />
-            )}
-            <div className={styles["main-content"]}>
-              <div>
-                <List list={props.ingridiants} name="ingridiant" />
-              </div>
-              <div>
-                <List list={props.instructions} name="instruction" />
-              </div>
-            </div>
-          </Card>
-        </li>
-      )}
-      {isEditing && (
+      {isEditing ? (
         <AddRecipe
           title={props.title}
           instructions={props.instructions}
@@ -64,6 +34,33 @@ const Recipe = (props) => {
           id={props.id}
           onSwitchEditing={switchEditingHandler}
         />
+      ) : (
+        <Card className={styles.recipe}>
+          <div className={`${styles.actions}`}>
+            <button
+              className={`${styles.action} ${styles.edit}`}
+              onClick={switchEditingHandler}
+            />
+            <button
+              className={`${styles.action} ${styles.trash}`}
+              onClick={() => {
+                setIsConfirming(true);
+              }}
+            />
+          </div>
+          <p className={styles.title}>{props.title}</p>
+          {props.src && (
+            <img src={props.src} className={styles.img} alt="dish" />
+          )}
+          <div className={styles["main-content"]}>
+            <div>
+              <List list={props.ingridiants} name="ingridiant" />
+            </div>
+            <div>
+              <List list={props.instructions} name="instruction" />
+            </div>
+          </div>
+        </Card>
       )}
     </>
   );

@@ -181,15 +181,14 @@ const AddRecipe = (props) => {
               />
             </label>
           </div>
-          {!props.title && <Button type="submit">+ Add Recipe</Button>}
-          {props.title && (
+          {props.title ? (
             <div className={styles.actions}>
               <Button className={styles.cancel} onClick={props.onSwitchEditing}>
                 Cancel
               </Button>
               <Button onClick={getUserConfirmation}>Save Changes</Button>
             </div>
-          )}
+          ): <Button type="submit">+ Add Recipe</Button>}
         </form>
       </Card>
     </div>

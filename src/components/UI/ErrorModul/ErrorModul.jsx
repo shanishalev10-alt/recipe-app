@@ -1,7 +1,7 @@
 import ReactDom from "react-dom";
 
 import Card from "../Card/Card";
-import Button from "../../UI/Button/Button";
+import Button from "../Button/Button";
 import styles from "./ErrorModul.module.css";
 
 const ErrorModul = (props) => {

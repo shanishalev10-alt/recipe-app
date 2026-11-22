@@ -3,9 +3,9 @@ import useRecipes from "../hooks/use-recipes";
 
 const RecipesContext = React.createContext({
   recipes: [],
-  addRecipe: () => {},
-  editRecipe: () => {},
-  removeRecipe: () => {},
+  addRecipe: (recipe) => {},
+  editRecipe: (newRecipe) => {},
+  removeRecipe: (identifier) => {},
 });
 
 export const RecipesContextProvider = (props) => {
