@@ -17,7 +17,7 @@ const Recipes = () => {
         onDelete={() => {
           removeRecipe(recipe.id);
         }}
-        key={recipe.id}                                                                                                            
+        key={recipe.id}
       />
     );
   });

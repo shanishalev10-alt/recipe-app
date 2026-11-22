@@ -1,30 +1,31 @@
 import { useReducer, useEffect } from "react";
 
 const defaultRecipesState = [
-    {
-      id: "r1",
-      title: "cake",
-      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
-      instructions: ["Mix in a bowl.", " 30 min in oven."],
-    },
-    {
-      id: "r2",
-      title: "cookies",
-      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
-      instructions: ["Mix in a bowl.", " 30 min in oven."],
-    },
-    {
-      id: "r3",
-      title: "brownies",
-      ingridiants: ["flour", "eggs", "oil", "suger", "chocolate", "butter"],
-      instructions: ["Mix in a bowl.", " 30 min in oven."],
-    },
-  ]
+  {
+    id: "r1",
+    title: "cake",
+    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
+    instructions: ["Mix in a bowl.", " 30 min in oven."],
+  },
+  {
+    id: "r2",
+    title: "cookies",
+    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate"],
+    instructions: ["Mix in a bowl.", " 30 min in oven."],
+  },
+  {
+    id: "r3",
+    title: "brownies",
+    ingridiants: ["flour", "eggs", "oil", "suger", "chocolate", "butter"],
+    instructions: ["Mix in a bowl.", " 30 min in oven."],
+  },
+];
 
 const recipesReducer = (state, action) => {
   let recipes;
   switch (action.type) {
-    case "ADD": //add functionality
+    case "ADD":
+      //add functionality
       recipes = [
         ...state,
         { id: `r${+state[state.length - 1].id[1] + 1}`, ...action.payload },

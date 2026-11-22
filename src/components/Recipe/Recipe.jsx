@@ -9,7 +9,6 @@ const Recipe = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
 
-
   const switchEditingHandler = () => {
     setIsEditing((prev) => !prev);
   };

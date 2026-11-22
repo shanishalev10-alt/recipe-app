@@ -10,7 +10,7 @@ import ConfirmModul from "../UI/ConfirmModul/ConfirmModul";
 const PICTURE_TYPE = /image.*/;
 
 const AddRecipe = (props) => {
-  const {addRecipe, editRecipe} = useContext(RecipesContext);
+  const { addRecipe, editRecipe } = useContext(RecipesContext);
   const [title, setTitle] = useState(props.title || "");
   const [instructions, setInstructions] = useState(props.instructions || []);
   const [ingridiants, setIngridiants] = useState(props.ingridiants || []);
@@ -91,16 +91,15 @@ const AddRecipe = (props) => {
   };
 
   const getUserConfirmation = () => {
-
     if (!validationTest()) {
       return;
     }
 
-    setIsConfirming(true)
-  }
-  
+    setIsConfirming(true);
+  };
+
   const saveChanges = () => {
-    setIsConfirming(false)
+    setIsConfirming(false);
 
     editRecipe({
       id: props.id,
@@ -109,7 +108,7 @@ const AddRecipe = (props) => {
       instructions,
       src,
     });
-    props.onSwitchEditing();     
+    props.onSwitchEditing();
   };
 
   return (
@@ -117,7 +116,9 @@ const AddRecipe = (props) => {
       {isConfirming && (
         <ConfirmModul
           onConfirm={saveChanges}
-          onCancel={()=>{setIsConfirming(false)}}
+          onCancel={() => {
+            setIsConfirming(false);
+          }}
           text={"Are you sure? The changes will be permanent"}
           title={"Save changes?"}
         />
